@@ -5,6 +5,16 @@
     <h2>{{ post.title }}</h2>
     <p>{{ post.text }}</p>
 
+    <form action="{% url 'blog:delete' post.pk %}" method="get">
+    {% csrf_token %}
+    <input type="submit" value="Delete" />
+    </form>
+
+     <form action="{% url 'blog:update' post.pk %}" method="get">
+    {% csrf_token %}
+    <input type="submit" value="Update" />
+    </form>
+
 
 
 {% endblock content %}

@@ -19,12 +19,17 @@ urlpatterns = [
         name='results'
     ),
     url(
-        regex=r'^post/(?P<pk>\d+>)/update/$',
+        regex=r'^post/(?P<pk>\d+)/update/$',
         view=views.PostUpdateView.as_view(),
         name='update'
     ),
     url(regex=r'^post/create/$',
         view=views.PostCreateView.as_view(),
-        name='create')
+        name='create'),
+    url(
+        regex=r'^post/(?P<pk>\d+)/delete/$',
+        view=views.PostDeleteView.as_view(),
+        name='delete'
+    )
 
 ]

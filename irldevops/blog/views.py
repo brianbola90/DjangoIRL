@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post
 # Create your views here.
 
@@ -19,19 +20,16 @@ class PostResultsView(DetailView):
     template_name = 'blog/results.html'
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super(PostUpdateView, self).form_valid(form)
+    fields = ['title', 'text']
 
     def get_success_url(self):
         return reverse('blog:detail',
                        kwargs={'pk': self.object.pk})
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'text']
 
@@ -42,3 +40,8 @@ class PostCreateView(CreateView):
     def get_success_url(self):
         return reverse('blog:detail',
                        kwargs={'pk': self.object.pk})
+
+
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('blog:list')
