@@ -1,10 +1,16 @@
 from django.urls import reverse_lazy
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
 from .models import Post
+from .forms import CommentForm
 # Create your views here.
+
+
+class ObjectOwnerMixin:
+
+    def get_queryset(self):
+        return self.model.objects.filter(author=self.request.user)
 
 
 class PostListView(ListView):
@@ -21,20 +27,13 @@ class PostResultsView(DetailView):
     template_name = 'blog/results.html'
 
 
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+class PostUpdateView(ObjectOwnerMixin, LoginRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'text']
 
     def get_success_url(self):
         return reverse('blog:detail',
                        kwargs={'pk': self.object.pk})
-
-    def get_object(self, queryset=None):
-        """ Hook to ensure object is owned by request.user. """
-        obj = super(PostUpdateView, self).get_object()
-        if not obj.author == self.request.user:
-            raise PermissionDenied
-        return obj
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -50,13 +49,20 @@ class PostCreateView(LoginRequiredMixin, CreateView):
                        kwargs={'pk': self.object.pk})
 
 
-class PostDeleteView(LoginRequiredMixin, DeleteView):
+class PostDeleteView(ObjectOwnerMixin, LoginRequiredMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('blog:list')
 
-    def get_object(self, queryset=None):
-        """ Hook to ensure object is owned by request.user. """
-        obj = super(PostDeleteView, self).get_object()
-        if not obj.author == self.request.user:
-            raise PermissionDenied
-        return obj
+
+class CommentView(FormView):
+    template_name = 'blog/comment.html'
+    form_class = CommentForm
+    success_url = reverse_lazy('blog:list')
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        form.instance.author = self.request.user
+        form.commentauthor()
+        form.save()
+        return super(CommentView, self).form_valid(form)

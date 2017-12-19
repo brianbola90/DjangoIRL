@@ -30,6 +30,11 @@ urlpatterns = [
         regex=r'^post/(?P<pk>\d+)/delete/$',
         view=views.PostDeleteView.as_view(),
         name='delete'
+    ),
+    url(
+        regex=r'^post/(?P<pk>\d+)/comment/$',
+        view=views.CommentView.as_view(),
+        name='comment'
     )
 
 ]

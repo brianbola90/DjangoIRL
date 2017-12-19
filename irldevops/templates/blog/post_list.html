@@ -6,7 +6,8 @@
   {% for post in object_list %}
   <li>
     <h1>Post</h1>
-    {{ post.title }}
+    <p>{{ post.title }}</p>
+    <a href="{% url 'blog:detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
   </li>
   {% endfor %}
 </ul>

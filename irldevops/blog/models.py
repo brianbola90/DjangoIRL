@@ -23,3 +23,7 @@ class Comment(TimeStampModel):
     author = models.CharField(max_length=200)
     text = models.TextField()
     approved_comment = models.BooleanField(default=True)
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()

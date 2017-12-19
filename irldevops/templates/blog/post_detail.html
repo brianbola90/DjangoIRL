@@ -4,6 +4,7 @@
     <h1>Post</h1>
     <h2>{{ post.title }}</h2>
     <p>{{ post.text }}</p>
+    <a class="btn btn-default" href="{% url 'blog:comment' pk=post.pk %}">Add comment</a>
 
     {% if post.author == request.user %}
     <form action="{% url 'blog:delete' post.pk %}" method="get">
@@ -17,5 +18,15 @@
     </form>
     {% endif %}
 
+<hr>
+{% for comment in post.comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.created_date }}</div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
 
 {% endblock content %}
