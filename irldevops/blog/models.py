@@ -20,7 +20,7 @@ class Post(TimeStampModel):
 
 class Comment(TimeStampModel):
     post = models.ForeignKey('blog.Post', related_name='comments')
-    author = models.CharField(max_length=200)
+    author = models.ForeignKey('users.User')
     text = models.TextField()
     approved_comment = models.BooleanField(default=True)
 

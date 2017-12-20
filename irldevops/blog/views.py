@@ -1,8 +1,10 @@
 from django.urls import reverse_lazy
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, FormView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 from .models import Post
+from django.shortcuts import render
 from .forms import CommentForm
 # Create your views here.
 
@@ -54,15 +56,19 @@ class PostDeleteView(ObjectOwnerMixin, LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('blog:list')
 
 
-class CommentView(FormView):
-    template_name = 'blog/comment.html'
+class CommentView(CreateView):
     form_class = CommentForm
-    success_url = reverse_lazy('blog:list')
+    template_name = 'blog/comment.html'
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        form.instance.author = self.request.user
-        form.commentauthor()
-        form.save()
+        comment = form.save(commit=False)
+
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        comment.post = post
+        comment.author = self.request.user
+        comment.save()
         return super(CommentView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('blog:detail',
+                       kwargs={'pk': self.object.post.pk})
