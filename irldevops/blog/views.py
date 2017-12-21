@@ -56,7 +56,7 @@ class PostDeleteView(ObjectOwnerMixin, LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('blog:list')
 
 
-class CommentView(CreateView):
+class CommentView(LoginRequiredMixin, CreateView):
     form_class = CommentForm
     template_name = 'blog/comment.html'
 

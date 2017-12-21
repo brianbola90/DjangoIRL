@@ -16,7 +16,6 @@
     {% block css %}
     <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-
     <!-- Your stuff: Third-party CSS libraries go here -->
     {% compress css %}
     <!-- This file stores project-specific CSS -->
@@ -38,10 +37,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'blog:list' %}">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{% url 'blog:list' %}">Posts</a>
             </li>
             {% if request.user.is_authenticated %}
               <li class="nav-item">
