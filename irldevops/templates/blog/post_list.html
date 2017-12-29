@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content%}
 <h1>Posts</h1>
+
 <ul>
   {% for post in object_list %}
   <li>
@@ -10,4 +11,19 @@
   {% endfor %}
 </ul>
 <a href="{% url 'blog:create'%}"><span>create post</span></a>
+{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/blog/post?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/blog/post?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
 {% endblock content %}

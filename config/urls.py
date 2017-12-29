@@ -15,7 +15,8 @@ urlpatterns = [
     # User management
     url(r'^users/', include('irldevops.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^blog/', include('blog.urls', namespace='blog'))
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^activity/', include('actstream.urls')),
 
     # Your stuff: custom urls includes go here
 

@@ -37,8 +37,7 @@ DJANGO_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
-    'core',
+
 
     # Useful template tags:
     # 'django.contrib.humanize',
@@ -51,6 +50,7 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+
 ]
 
 # Apps specific for this project go here.
@@ -58,6 +58,11 @@ LOCAL_APPS = [
     # custom users app
     'irldevops.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'blog',
+    'core',
+    'feed',
+    'actstream',
+
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -278,3 +283,11 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+ACTSTREAM_SETTINGS = {
+    'MANAGER': 'feed.managers.MyActionManager',
+    'FETCH_RELATIONS': True,
+    'USE_PREFETCH': True,
+    'USE_JSONFIELD': False,
+    'GFK_FETCH_DEPTH': 1,
+}
+

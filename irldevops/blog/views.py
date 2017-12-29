@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from .models import Post
 from django.shortcuts import render
 from .forms import CommentForm
+from actstream import action
 # Create your views here.
 
 
@@ -18,7 +19,7 @@ class ObjectOwnerMixin:
 class PostListView(ListView):
     model = Post
     ordering = ['created']
-    paginate_by = 10
+    paginate_by = 5
 
 
 class PostDetailView(DetailView):
@@ -44,6 +45,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        action.send(self.request.user, verb='created post', action_object=None, target=None)
         return super(PostCreateView, self).form_valid(form)
 
     def get_success_url(self):
@@ -67,6 +69,7 @@ class CommentView(LoginRequiredMixin, CreateView):
         comment.post = post
         comment.author = self.request.user
         comment.save()
+        action.send(self.request.user, verb='created comment on ', action_object=comment, target=post)
         return super(CommentView, self).form_valid(form)
 
     def get_success_url(self):
