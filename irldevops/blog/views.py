@@ -44,8 +44,10 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'text']
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
-        action.send(self.request.user, verb='created post', action_object=None, target=None)
+        post = form.save(commit=False)
+        post.author = self.request.user
+        post.save()
+        action.send(self.request.user, verb='created post', action_object=None, target=post)
         return super(PostCreateView, self).form_valid(form)
 
     def get_success_url(self):
@@ -69,7 +71,7 @@ class CommentView(LoginRequiredMixin, CreateView):
         comment.post = post
         comment.author = self.request.user
         comment.save()
-        action.send(self.request.user, verb='created comment on ', action_object=comment, target=post)
+        action.send(self.request.user, verb='created comment on ', action_object=None, target=post)
         return super(CommentView, self).form_valid(form)
 
     def get_success_url(self):

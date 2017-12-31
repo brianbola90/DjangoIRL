@@ -4,6 +4,7 @@
     <h1>Post</h1>
     <h2>{{ post.title }}</h2>
     <p>{{ post.text }}</p>
+    <a href="{% url 'users:detail' post.author.username %}">{{post.author}}</a>
     <a class="btn btn-default" href="{% url 'blog:comment' pk=post.pk %}">Add comment</a>
 
     {% if post.author == request.user %}
@@ -22,7 +23,7 @@
 {% for comment in post.comments.all %}
     <div class="comment">
         <div class="date">{{ comment.created }}</div>
-        <strong>{{ comment.author }}</strong>
+      <a href="{% url 'users:detail' comment.author.username %}"><strong>{{comment.author}}</strong></a>
         <p>{{ comment.text|linebreaks }}</p>
     </div>
 {% empty %}
