@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% block content%}
-<h1>Posts</h1>
-
-<ul>
-  {% for post in object_list %}
-  <li>
-    <a href="{% url 'blog:detail' pk=post.pk %}">{{ post.title }}</a>
-    <p>Comments: {{ post.comments.count }}</p>
-  </li>
+{% for post in object_list %}
+<div class="card mb-3">
+  <img class="card-img-top" src="http://via.placeholder.com/2000x1000" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title "><a href="{% url 'blog:detail' pk=post.pk %}">{{ post.title }}</a></h5>
+    <p class="card-text"><small class="text-muted">Created {{ post.created }}</small></p>
+    <p><span class="pull-right"><i class="fa fa-1.5x fa-comment-o"></i> {{ post.comments.count }} </span></p>
+  </div>
+</div>
   {% endfor %}
-</ul>
+
 <a href="{% url 'blog:create'%}"><span>create post</span></a>
 {% if is_paginated %}
         <div class="pagination">

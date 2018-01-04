@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% block content%}
+    <h2>{{ post.title|capfirst }}</h2>
+    <p>{{ post.text|capfirst }}</p>
 
-    <h1>Post</h1>
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.text }}</p>
-    <a href="{% url 'users:detail' post.author.username %}">{{post.author}}</a>
-    <a class="btn btn-default" href="{% url 'blog:comment' pk=post.pk %}">Add comment</a>
+<a href="{% url 'users:detail' post.author.username %}">{{post.author|capfirst}}</a>
+<small>{{ post.created }}</small>
 
     {% if post.author == request.user %}
     <form action="{% url 'blog:delete' post.pk %}" method="get">
@@ -20,14 +19,22 @@
     {% endif %}
 
 <hr>
+
 {% for comment in post.comments.all %}
     <div class="comment">
-        <div class="date">{{ comment.created }}</div>
-      <a href="{% url 'users:detail' comment.author.username %}"><strong>{{comment.author}}</strong></a>
-        <p>{{ comment.text|linebreaks }}</p>
+      <a href="{% url 'users:detail' comment.author.username %}">{{comment.author|capfirst}}</a>
+      <div class="date pull-right"><small>{{ comment.created }}</small></div>
+        <p>{{ comment.text|capfirst|linebreaks }}</p>
     </div>
-{% empty %}
-    <p>No comments here yet :(</p>
+<hr>
 {% endfor %}
+
+<form action="{% url 'blog:comment' pk=post.pk %}" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <textarea class="form-control" name="text" rows="5" id="comment" id="id_text" aria-describedby="commentHelp" placeholder="Enter comment"></textarea>
+  </div>
+  <input type="submit" value="Comment" />
+</form>
 
 {% endblock content %}

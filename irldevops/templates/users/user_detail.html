@@ -43,7 +43,7 @@
 <!-- Action buttons -->
 <div class="row">
 
-  <div class="col-sm-12">
+  <div class="col-sm-10">
     <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
     <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
     <!-- Your Stuff: Custom user template urls -->
@@ -53,7 +53,7 @@
   <hr>
 
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-10">
     <div class="card">
   {% activity_stream 'actor' user %}
 {% for action in stream %}

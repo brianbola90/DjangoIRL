@@ -60,7 +60,6 @@ LOCAL_APPS = [
     # Your stuff: custom apps go here
     'blog',
     'core',
-    'feed',
     'actstream',
 
 ]
@@ -284,7 +283,7 @@ ADMIN_URL = r'^admin/'
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
 ACTSTREAM_SETTINGS = {
-    'MANAGER': 'feed.managers.MyActionManager',
+    # 'MANAGER': 'actstream.managers.MyActionManager',
     'FETCH_RELATIONS': True,
     'USE_PREFETCH': True,
     'USE_JSONFIELD': False,

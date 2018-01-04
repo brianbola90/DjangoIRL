@@ -17,6 +17,8 @@
     <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <!-- Your stuff: Third-party CSS libraries go here -->
+    <link href='https://fonts.googleapis.com/css?family=Overpass+Mono' rel='stylesheet' type='text/css'>
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel="stylesheet" type="text/css">
     {% compress css %}
     <!-- This file stores project-specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
@@ -26,7 +28,7 @@
   </head>
 
   <body>
-
+  <div class="container">
     <div class="m-b-1">
       <nav class="navbar navbar-expand-md navbar-light bg-light">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +71,7 @@
       </nav>
 
     </div>
-
+    </div>
     <div class="container">
 
       {% if messages %}
@@ -77,11 +79,31 @@
               <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
           {% endfor %}
       {% endif %}
+      <div class="row">
+        <hr>
+      </div>
+<div class="row">
+<div class="col-sm-3 col-lg-3">
+  <div class="card">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
+  </div>
 
+</div>
+
+
+  <div class="col-sm">
       {% block content %}
+
         <p>Use this document as a way to quick start any new project.</p>
       {% endblock content %}
-
+</div>
+  <div class="col-sm-2">
+    </div>
+    </div>
     </div> <!-- /container -->
 
     {% block modal %}{% endblock modal %}
