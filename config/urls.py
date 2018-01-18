@@ -4,6 +4,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from actstream import views as actstream_views
+from actstream import feeds
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -15,8 +17,25 @@ urlpatterns = [
     # User management
     url(r'^users/', include('irldevops.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+#follow unfollow urls
+    url(r'^followers/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
+        actstream_views.followers, name='actstream_followers'),
+    url(r'^following/(?P<user_id>[^/]+)/$',
+        actstream_views.following, name='actstream_following'),
+    url(r'^follow/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
+        actstream_views.follow_unfollow, name='actstream_follow'),
+    url(r'^follow_all/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
+        actstream_views.follow_unfollow, {'actor_only': False},
+        name='actstream_follow_all'),
+    url(r'^unfollow_all/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
+        actstream_views.follow_unfollow, {'actor_only': False, 'do_follow': False},
+        name='actstream_unfollow_all'),
+    url(r'^unfollow/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
+        actstream_views.follow_unfollow, {'do_follow': False},
+        name='actstream_unfollow'),
 
-    # Your stuff: custom urls includes go here
+   # Your stuff: custom urls includes go here
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

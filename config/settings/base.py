@@ -15,17 +15,17 @@ APPS_DIR = ROOT_DIR.path('irldevops')
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
 
-# .env file, should load only in development environment
+# ..env file, should load only in development environment
 READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
 
 if READ_DOT_ENV_FILE:
-    # Operating System Environment variables have precedence over variables defined in the .env file,
-    # that is to say variables from the .env files will only be used if not defined
+    # Operating System Environment variables have precedence over variables defined in the ..env file,
+    # that is to say variables from the ..env files will only be used if not defined
     # as environment variables.
-    env_file = str(ROOT_DIR.path('.env'))
+    env_file = str(ROOT_DIR.path('..env'))
     print('Loading : {}'.format(env_file))
     env.read_env(env_file)
-    print('The .env file has been loaded. See base.py for more information')
+    print('The ..env file has been loaded. See base.py for more information')
 
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -38,6 +38,7 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
     # Useful template tags:
     # 'django.contrib.humanize',
 
@@ -49,6 +50,7 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+
 ]
 
 # Apps specific for this project go here.
@@ -56,6 +58,10 @@ LOCAL_APPS = [
     # custom users app
     'irldevops.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'blog',
+    'core',
+    'actstream',
+
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -276,3 +282,11 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+ACTSTREAM_SETTINGS = {
+    # 'MANAGER': 'actstream.managers.MyActionManager',
+    'FETCH_RELATIONS': True,
+    'USE_PREFETCH': True,
+    'USE_JSONFIELD': False,
+    'GFK_FETCH_DEPTH': 1,
+}
+

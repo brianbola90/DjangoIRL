@@ -1,5 +1,6 @@
 /* These styles are generated from project.scss. */
-
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web);
+@import url(https://fonts.googleapis.com/css?family=Overpass+Mono);
 .alert-debug {
   color: black;
   background-color: white;
@@ -18,4 +19,16 @@
 */
 [hidden][style="display: block;"] {
   display: block !important;
+}
+
+nav{
+font-family: 'Overpass Mono', monospace;
+}
+
+container {
+font-family: 'Overpass Mono', monospace;
+}
+
+body {
+font-family: 'Overpass Mono', monospace;
 }

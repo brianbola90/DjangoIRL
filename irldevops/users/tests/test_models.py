@@ -1,19 +1,15 @@
 from test_plus.test import TestCase
+from blog.models import Post
 
 
 class TestUser(TestCase):
 
     def setUp(self):
         self.user = self.make_user()
+        self.post = Post.objects.create(title='title', text='body', author=self.user)
 
     def test__str__(self):
         self.assertEqual(
-            self.user.__str__(),
-            'testuser'  # This is the default username for self.make_user()
-        )
-
-    def test_get_absolute_url(self):
-        self.assertEqual(
-            self.user.get_absolute_url(),
-            '/users/testuser/'
+            self.post.__str__(),
+            'title'
         )
