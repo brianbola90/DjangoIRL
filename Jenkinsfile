@@ -1,23 +1,28 @@
 node {
-    // Mark the code checkout 'stage'....
-    stage 'Checkout'
 
-    // Get the code from a GitHub repository
-    git credentialsId: 'mycredentials', url: 'https://github.com/<user>/<project>/'
+    try {
+        stage 'Checkout'
+            checkout scm
 
-    // Mark the code build 'stage'....
-    stage 'Build'
+            sh 'git log HEAD^..HEAD --pretty="%h %an - %s" > GIT_CHANGES'
+            def lastChanges = readFile('GIT_CHANGES')
+            slackSend color: "warning", message: "Started `${env.JOB_NAME}#${env.BUILD_NUMBER}`\n\n_The changes:_\n${lastChanges}"
 
-    env.WORKSPACE = pwd()
+        stage 'Test'
+            sh 'virtualenv env -p python2.7'
+            sh '. env/bin/activate'
+            sh 'env/bin/pip install -r requirements.txt'
+            sh 'env/bin/python2.7 manage.py test'
 
-    sh 'virtualenv --python=python34 venv'
-    sh 'source venv/bin/activate'
 
-    sh 'pip install -r requirements.txt'
+        stage 'Publish results'
+            slackSend color: "good", message: "Build successful: `${env.JOB_NAME}#${env.BUILD_NUMBER}` <${env.BUILD_URL}|Open in Jenkins>"
+    }
 
-    env.DJANGO_SETTINGS_MODULE = "<appname>.settings.jenkins"
+    catch (err) {
+        slackSend color: "danger", message: "Build failed :face_with_head_bandage: \n`${env.JOB_NAME}#${env.BUILD_NUMBER}` <${env.BUILD_URL}|Open in Jenkins>"
 
-    // Start the tests
-    stage 'Test'
-    sh 'python34 manage.py test --keepdb'
+        throw err
+    }
+
 }
