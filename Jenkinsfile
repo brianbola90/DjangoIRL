@@ -5,7 +5,8 @@ node {
             checkout scm
 
         stage 'Test'
-            sh 'virtualenv env -p python2.7'
+            sh 'pip install virtualenv'
+	    sh 'virtualenv env -p python2.7'
             sh '. env/bin/activate'
             sh 'env/bin/pip install -r requirements.txt'
             sh 'env/bin/python2.7 manage.py test'
