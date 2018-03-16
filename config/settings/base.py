@@ -61,6 +61,7 @@ LOCAL_APPS = [
     'blog',
     'core',
     'actstream',
+    'markdownx',
 
 ]
 

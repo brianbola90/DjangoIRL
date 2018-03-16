@@ -2,8 +2,9 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.core.urlresolvers import reverse
-from core.models import TimeStampModel
-
+from irldevops.core.models import TimeStampModel
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
 
 # Create your models here.
 
@@ -11,16 +12,25 @@ from core.models import TimeStampModel
 class Post(TimeStampModel):
     author = models.ForeignKey('users.User')
     title = models.CharField(max_length=200)
-    text = models.TextField()
+    text = MarkdownxField()
+    publish = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "posts"
+
+    @property
+    def formatted_markdown(self):
+        return markdownify(self.text)
 
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title
+
+    def publish_post(self):
+        self.publish = True
+        self.save()
 
 
 class Comment(TimeStampModel):

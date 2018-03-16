@@ -17,7 +17,7 @@ import os
 import sys
 
 from django.core.wsgi import get_wsgi_application
-
+from whitenoise.django import DjangoWhiteNoise
 # This allows easy placement of apps within the interior
 # irldevops directory.
 app_path = os.path.dirname(os.path.abspath(__file__)).replace('/config', '')
@@ -41,3 +41,5 @@ if os.environ.get('DJANGO_SETTINGS_MODULE') == 'config.settings.production':
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+application = DjangoWhiteNoise(application)

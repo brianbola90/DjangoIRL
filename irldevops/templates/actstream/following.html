@@ -1,10 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-{% load i18n %}
-<h2>{% blocktrans %}Users that {{ user }} follows{% endblocktrans %}</h2>
-<ul>
-    {% for user in following %}
-    <li>{{ user }}</li>
+{% load staticfiles %}
+{% load activity_tags i18n %}
+
+{% if following|length == 0 %}
+<div class="col-lg-4 col-sm-6 text-center mb-4">
+  <p>Your not following anyone</p>
+  <img class="rounded-circle img-fluid d-block mx-auto" src="{% static 'images/sadness.png' %}" alt="">
+</div>
+  {% else %}
+<h2>Following</h2>
+<br>
+    {% for following_user in following %}
+  <div class="card flex-row flex-wrap">
+        <div class="card-header border-0">
+            <img src="{{ following_user.profile_image_url }}" alt="">
+        </div>
+        <div class="card-block px-2">
+          <br>
+          <h4 class="card-title"> <a href="{% url 'users:detail' following_user.username %}">{{ following_user|capfirst }}</a></h4>
+          <p class="card-text"><blockquote>{{following_user.bio}}</blockquote></p>
+        </div>
+        <div class="w-100"></div>
+    </div>
+    <hr>
     {% endfor %}
-</ul>
+
+{% endif %}
 {% endblock %}

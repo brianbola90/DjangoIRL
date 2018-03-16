@@ -1,34 +1,51 @@
 {% extends 'base.html' %}
 {% block content%}
     <h2>{{ post.title|capfirst }}</h2>
-    <p>{{ post.text|capfirst }}</p>
+    <span><i class="fa fa-calendar"></i> {{ post.created }} </span>
+    <span><i class="fa fa-1.5x fa-comment-o"></i> {{ post.comments.count }} </span>
 
+<p> {{ post.formatted_markdown|safe }}</p>
+<p>Written by
 <a href="{% url 'users:detail' post.author.username %}">{{post.author|capfirst}}</a>
-<small>{{ post.created }}</small>
+  <small>{{ post.created }}</small>
+</p>
 
-    {% if post.author == request.user %}
-    <form action="{% url 'blog:delete' post.pk %}" method="get">
+ {% if post.author == request.user %}
+<div class="input-group mb-3">
+
+  {% if post.publish == False %}
+    <form action="{% url 'blog:publish' post.pk %}" method="post">
     {% csrf_token %}
-    <input type="submit" value="Delete" />
+    <input type="submit" class="btn btn-info btn-xs " value="Publish">
     </form>
+  {% endif %}
 
      <form action="{% url 'blog:update' post.pk %}" method="get">
     {% csrf_token %}
-    <input type="submit" value="Update" />
+    <input type="submit" class="btn btn-warning btn-sm " value="Update" />
     </form>
-    {% endif %}
+    <form action="{% url 'blog:delete' post.pk %}" method="get">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger btn-sm " value="Delete">
+    </form>
+</div>
+
+{% endif %}
 
 <hr>
+<hr>
+{% if post.publish %}
 
 {% for comment in post.comments.all %}
     <div class="comment">
+      <img class="img-fluid img-rounded mx-auto" src="{{ comment.author.profile_image_url_thumb }}">
       <a href="{% url 'users:detail' comment.author.username %}">{{comment.author|capfirst}}</a>
       <div class="date pull-right"><small>{{ comment.created }}</small></div>
+      <br>
         <p>{{ comment.text|capfirst|linebreaks }}</p>
     </div>
 <hr>
 {% endfor %}
-
 <form action="{% url 'blog:comment' pk=post.pk %}" method="post">
   {% csrf_token %}
   <div class="form-group">
@@ -36,5 +53,6 @@
   </div>
   <input type="submit" value="Comment" />
 </form>
+{% endif %}
 
 {% endblock content %}

@@ -32,3 +32,8 @@ font-family: 'Overpass Mono', monospace;
 body {
 font-family: 'Overpass Mono', monospace;
 }
+
+.btn-sm {
+  font-size: 10px;
+  padding: 8px 16px;
+}

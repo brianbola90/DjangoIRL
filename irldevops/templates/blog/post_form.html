@@ -2,7 +2,21 @@
 {% block content%}
 <h1>Posts</h1>
 <form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+
+    <div class="fieldWrapper">
+        {{ field.errors }}
+       <div class="form-group">
+         {% if field.id_for_label == 'id_publish' %}
+         {{ field.label }} {{ field }}
+         {% else %}
+         {{ field }}
+         {{ form.media }}
+        {% endif %}
+       </div>
+      <br>
+    </div>
+{% endfor %}
     <input type="submit" value="Save" />
 </form>
 {% endblock content %}

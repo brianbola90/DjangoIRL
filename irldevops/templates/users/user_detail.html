@@ -9,12 +9,17 @@
   <div class="row">
     <div class="col-sm-12">
 
+      <img class="img-fluid  mx-auto" src="{{ object.profile_image_url }}">
+
       <h2>{{ object.username }}</h2>
       {% if object.name %}
-        <p>{{ object.name   }}</p>
+      <blockquote><i>{{ object.name }}</i></blockquote>
+      <p> {{ object.bio }}</p>
       {% endif %}
-      <strong>Followers <a href="{% url 'actstream_followers' content_type_id=12 object_id=object.id %}">{{ object.get_followers }}</a></strong>
-      <strong>Following <a href="{% url 'actstream_following' user_id=object.id %}">{{ object.get_following }}</a></strong>
+
+      <strong>Followers <a href="{% url 'actstream_followers' content_type_id=12 object_id=object.id %}">{{ object.get_followers_count }}</a></strong>
+      <strong>Following <a href="{% url 'actstream_following' user_id=object.id %}">{{ object.get_following_count }}</a></strong>
+
     </div>
   </div>
   <!--Follow users if not own profile-->
@@ -55,10 +60,13 @@
   <div class="row">
     <div class="col-sm-10">
     <div class="card">
-  {% activity_stream 'actor' user %}
+  {% for actor in object.get_following_list %}
+  {% activity_stream 'actor'  actor %}
 {% for action in stream %}
   <ul><li>{% display_action action %}</li></ul>
 {% endfor %}
+      {% endfor %}
+      </div>
       </div>
       </div>
   </div>

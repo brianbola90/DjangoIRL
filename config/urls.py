@@ -5,7 +5,6 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from actstream import views as actstream_views
-from actstream import feeds
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -18,7 +17,7 @@ urlpatterns = [
     url(r'^users/', include('irldevops.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
-#follow unfollow urls
+    # follow unfollow urls
     url(r'^followers/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
         actstream_views.followers, name='actstream_followers'),
     url(r'^following/(?P<user_id>[^/]+)/$',
@@ -34,6 +33,7 @@ urlpatterns = [
     url(r'^unfollow/(?P<content_type_id>[^/]+)/(?P<object_id>[^/]+)/$',
         actstream_views.follow_unfollow, {'do_follow': False},
         name='actstream_unfollow'),
+    url(r'^markdownx/', include('markdownx.urls')),
 
    # Your stuff: custom urls includes go here
 

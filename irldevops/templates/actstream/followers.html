@@ -1,7 +1,31 @@
-{% load i18n %}
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load activity_tags i18n %}
+{% block content %}
+
+{% if followers|length == 0 %}
+<div class="col-lg-4 col-sm-6 text-center mb-4">
+  <p>No followers</p>
+  <img class="rounded-circle img-fluid d-block mx-auto" src="{% static 'images/sadness.png' %}" alt="">
+</div>
+  {% else %}
 <h2>{% blocktrans %}Users following {{ actor }}{% endblocktrans %}</h2>
 <ul>
     {% for user in followers %}
-    <li>{{ user }}</li>
+    <div class="card flex-row flex-wrap">
+        <div class="card-header border-0">
+            <img src="{{ user.profile_image_url }}" alt="">
+        </div>
+        <div class="card-block px-2">
+          <br>
+          <h4 class="card-title"> <a href="{% url 'users:detail' user.username %}">{{ user|capfirst }}</a></h4>
+          <p class="card-text"><blockquote>{{user.bio}}</blockquote></p>
+        </div>
+        <div class="w-100"></div>
+    </div>
+    <hr>
     {% endfor %}
 </ul>
+{% endif %}
+
+{% endblock content %}

@@ -1,11 +1,12 @@
+
 from django.urls import reverse_lazy
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+from django.views.generic.detail import SingleObjectMixin
+from django.shortcuts import get_object_or_404, redirect
 from .models import Post
-from django.shortcuts import render
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 from actstream import action
 # Create your views here.
 
@@ -16,10 +17,27 @@ class ObjectOwnerMixin:
         return self.model.objects.filter(author=self.request.user)
 
 
-class PostListView(ListView):
+class PublishedMixin:
+
+    def get_queryset(self):
+        return self.model.objects.filter(publish=True).order_by('-created')
+
+
+class UnPublishedMixin:
+
+    def get_queryset(self):
+        return self.model.objects.filter(author=self.request.user, publish=False).order_by('-created')
+
+
+class PostListView(PublishedMixin, ListView):
     model = Post
-    ordering = ['created']
     paginate_by = 5
+
+
+class PostListMyUnpulbished(UnPublishedMixin, LoginRequiredMixin, ListView):
+    model = Post
+    paginate_by = 5
+    # template_name = 'blog/post_list_drafts.html'
 
 
 class PostDetailView(DetailView):
@@ -32,7 +50,7 @@ class PostResultsView(DetailView):
 
 class PostUpdateView(ObjectOwnerMixin, LoginRequiredMixin, UpdateView):
     model = Post
-    fields = ['title', 'text']
+    fields = ['title', 'text', 'publish']
 
     def get_success_url(self):
         return reverse('blog:detail',
@@ -41,7 +59,8 @@ class PostUpdateView(ObjectOwnerMixin, LoginRequiredMixin, UpdateView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'text']
+    # fields = ['title', 'text']
+    form_class = PostForm
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -53,6 +72,17 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('blog:detail',
                        kwargs={'pk': self.object.pk})
+
+
+class PublishPostView(SingleObjectMixin, View):
+    model = Post
+
+    def post(self, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.publish = True
+        self.object.save(update_fields=('publish', ))
+        return redirect(to='blog:drafts')
+        # return HttpResponse(status=204)
 
 
 class PostDeleteView(ObjectOwnerMixin, LoginRequiredMixin, DeleteView):

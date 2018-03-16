@@ -35,6 +35,16 @@ urlpatterns = [
         regex=r'^post/(?P<pk>\d+)/comment/$',
         view=views.CommentView.as_view(),
         name='comment'
-    )
+    ),
+    url(
+        regex=r'^post/drafts/$',
+        view=views.PostListMyUnpulbished.as_view(),
+        name='drafts'
+    ),
+    url(
+        regex=r'^post/(?P<pk>\d+)/publish/$',
+        view=views.PublishPostView.as_view(),
+        name='publish'
+     ),
 
 ]
