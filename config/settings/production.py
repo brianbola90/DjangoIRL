@@ -17,6 +17,7 @@ import logging
 
 from .base import *  # noqa
 
+
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
