@@ -27,6 +27,9 @@ django-markdownx==2.0.22
 django-model-utils==3.0.0
 django-redis==4.8.0
 django-test-plus==1.0.20
+boto3==1.4.8
+django-storages==1.6.5
+Collectfast==0.6.0
 docutils==0.14
 enum34==1.1.6
 factory-boy==2.9.2
