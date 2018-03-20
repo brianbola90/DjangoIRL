@@ -154,8 +154,9 @@
       <!-- Your stuff: Third-party javascript libraries go here -->
 
       <!-- place project specific Javascript in this file -->
+  <script src="{% static 'js/project.js' %}"></script>
       {% compress js %}
-      <script src="{% static 'js/project.js' %}"></script>
+
       {% endcompress %}
 
     {% endblock javascript %}
