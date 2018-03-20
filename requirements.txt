@@ -17,6 +17,7 @@ Django==1.10.8
 django-activity-stream==0.6.5
 django-allauth==0.34.0
 django-appconf==1.0.2
+django-anymail
 django-compressor==2.2
 django-coverage-plugin==1.5.0
 django-crispy-forms==1.7.0
