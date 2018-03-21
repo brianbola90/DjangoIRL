@@ -47,5 +47,7 @@ django-anymail==1.2
 # Raven is the Sentry client
 # --------------------------
 raven==6.5.0
-actstream
+
+#Custom packages outside cookiecutter
+django-activity-stream
 django-markdownx
