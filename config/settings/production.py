@@ -74,11 +74,11 @@ INSTALLED_APPS += ['storages', ]
 AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
-AWS_AUTO_CREATE_BUCKET = False
+AWS_AUTO_CREATE_BUCKET = True
 AWS_QUERYSTRING_AUTH = False
 
 # AWS cache settings, don't change unless you know what you're doing:
-AWS_EXPIRY = 60 * 60 * 24 * 7
+# AWS_EXPIRY = 60 * 60 * 24 * 7
 
 # TODO See: https://github.com/jschneier/django-storages/issues/47
 # Revert the following and use str after the above-mentioned bug is fixed in
@@ -88,8 +88,12 @@ AWS_EXPIRY = 60 * 60 * 24 * 7
 #     'Cache-Control': bytes(control, encoding='latin-1')
 #}
 
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+
+AWS_HEADERS = {
+'Cache-Control': 'public, max-age=31536000', #(1 year)
 }
 # URL that handles the media served from MEDIA_ROOT, used for managing
 # stored files.
@@ -116,7 +120,7 @@ INSTALLED_APPS = ['collectfast', ] + INSTALLED_APPS
 # ------------------------------------------------------------------------------
 COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 COMPRESS_URL = STATIC_URL
-COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
+COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=False)
 # EMAIL
 # ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
