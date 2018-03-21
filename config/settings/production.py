@@ -58,7 +58,7 @@ X_FRAME_OPTIONS = 'DENY'
 # ------------------------------------------------------------------------------
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['djangoirl.herokuapp.com', '127.0.0.1', ])
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['*.herokuapp.com', '127.0.0.1', ])
 # END SITE CONFIGURATION
 
 INSTALLED_APPS += ['gunicorn', ]
@@ -74,7 +74,7 @@ INSTALLED_APPS += ['storages', ]
 AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
-AWS_AUTO_CREATE_BUCKET = True
+AWS_AUTO_CREATE_BUCKET = False
 AWS_QUERYSTRING_AUTH = False
 
 # AWS cache settings, don't change unless you know what you're doing:
