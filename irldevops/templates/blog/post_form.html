@@ -1,22 +1,15 @@
-{% extends 'base.html' %}
-{% block content%}
+{% extends 'base.html' %} {% block content%}
 
 <h1>Posts</h1>
 <form action="" method="post">
-  {% csrf_token %}
-  {% for field in form %}
-    <div class="fieldWrapper">
-        {{ field.errors }}
-       <div class="form-group">
-         {% if field.id_for_label == 'id_publish' %}
-         {{ field.label }} {{ field }}
-         {% else %}
-         {{ field }}
-        {% endif %}
-         {{ form.media }}
-       </div>
+  {% csrf_token %} {% for field in form %}
+  <div class="fieldWrapper">
+    {{ field.errors }}
+    <div class="form-group">
+      {{ field.label }} {{ field }} {{ form.media }}
     </div>
-{% endfor %}
-    <input type="submit" value="Save" />
+  </div>
+  {% endfor %}
+  <input type="submit" value="Save" />
 </form>
 {% endblock content %}
