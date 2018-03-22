@@ -1,9 +1,8 @@
-{% extends 'base.html' %}
 {% block content%}
 <h1>Posts</h1>
-<form action="" method="post">{% csrf_token %}
+<form action="" method="post">
+  {% csrf_token %}
     {% for field in form %}
-
     <div class="fieldWrapper">
         {{ field.errors }}
        <div class="form-group">
@@ -17,6 +16,7 @@
       <br>
     </div>
 {% endfor %}
+
     <input type="submit" value="Save" />
 </form>
 {% endblock content %}
