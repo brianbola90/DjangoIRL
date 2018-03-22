@@ -101,7 +101,9 @@ MediaRootS3BotoStorage = lambda: S3Boto3Storage(location='media', file_overwrite
 MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
 DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
 
-MARKDOWNX_MEDIA_PATH = DEFAULT_FILE_STORAGE
+# Markdownx media
+from datetime import datetime
+MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
 
 # Static Assets
 # ------------------------
