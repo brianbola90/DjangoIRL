@@ -27,9 +27,9 @@
 
 
   {% if request.user|is_following:object %}
-  <a class="btn btn-default" href="{% url 'actstream_unfollow' content_type_id=12 object_id=object.id %}?next={% url 'users:detail' object.username|urlencode %}">UnFollow</a>
+  <a class="btn-lg btn-primary" href="{% url 'actstream_unfollow' content_type_id=12 object_id=object.id %}?next={% url 'users:detail' object.username|urlencode %}">UnFollow</a>
   {% else %}
-  <a class="btn btn-default" href="{% url 'actstream_follow' content_type_id=12 object_id=object.id %}?next={% url 'users:detail' object.username|urlencode %}">Follow</a>
+  <a class="btn-lg btn-primary" href="{% url 'actstream_follow' content_type_id=12 object_id=object.id %}?next={% url 'users:detail' object.username|urlencode %}">Follow</a>
   {% endif %}
 <hr>
   <div class="row">
