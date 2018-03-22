@@ -52,4 +52,4 @@ raven==6.5.0
 django-activity-stream
 django-markdownx
 markdown
-pymdown-extensions
+

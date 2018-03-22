@@ -63,7 +63,7 @@ LOCAL_APPS = [
     'actstream',
     'markdown',
     'markdownx',
-    'pymdownx',
+
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
