@@ -102,7 +102,8 @@ MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml', 'i
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra',
     'markdown.extensions.fenced_code',
-    'pymdownx.b64'
+    'pymdownx.b64',
+    'pymdownx.emoji.emojione',
 ]
 # Static Assets
 # ------------------------
