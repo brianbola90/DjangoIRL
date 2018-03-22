@@ -97,13 +97,32 @@ MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
 DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
 # Markdownx media
 from datetime import datetime
+import pymdownx.emoji
+
+extension_configs = {
+    "pymdownx.emoji": {
+        "emoji_index": pymdownx.emoji.gemoji,
+        "emoji_generator": pymdownx.emoji.to_png,
+        "alt": "short",
+        "options": {
+            "attributes": {
+                "align": "absmiddle",
+                "height": "20px",
+                "width": "20px"
+            },
+            "image_path": "https://assets-cdn.github.com/images/icons/emoji/unicode/",
+            "non_standard_image_path": "https://assets-cdn.github.com/images/icons/emoji/"
+        }
+    }
+}
+
 MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
 MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/gif',]
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra',
     'markdown.extensions.fenced_code',
     'pymdownx.b64',
-    'pymdownx.emoji.emojione',
+    'pymdownx.emoji.gemoji',
 ]
 # Static Assets
 # ------------------------
