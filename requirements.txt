@@ -51,3 +51,4 @@ raven==6.5.0
 #Custom packages outside cookiecutter
 django-activity-stream
 django-markdownx
+markdown
