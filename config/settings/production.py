@@ -105,6 +105,11 @@ MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'pymdownx.b64',
     'pymdownx.magiclink',
 ]
+extension_configs = {
+    "pymdownx.magiclink": {
+        'provider': 'github'
+    }
+}
 # Static Assets
 # ------------------------
 STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
