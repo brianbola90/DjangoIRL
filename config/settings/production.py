@@ -16,7 +16,7 @@ import logging
 
 
 from .base import *  # noqa
-from storages.backends.s3boto3 import S3Boto3Storage
+
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
@@ -94,7 +94,7 @@ AWS_HEADERS = {
 # stored files.
 
 #  See:http://stackoverflow.com/questions/10390244/
-
+from storages.backends.s3boto3 import S3Boto3Storage
 StaticRootS3BotoStorage = lambda: S3Boto3Storage(location='static')  # noqa
 MediaRootS3BotoStorage = lambda: S3Boto3Storage(location='media', file_overwrite=False)  # noqa
 
