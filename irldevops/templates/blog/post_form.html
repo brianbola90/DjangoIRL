@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content%}
 
 <h1>Posts</h1>
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %} {% for field in form %}
   <div class="fieldWrapper">
     {{ field.errors }}
