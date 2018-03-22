@@ -61,6 +61,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     # fields = ['title', 'text']
     form_class = PostForm
+    template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
         post = form.save(commit=False)
