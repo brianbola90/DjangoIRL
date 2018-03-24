@@ -58,7 +58,8 @@
   <ul class="list-group">
     {% for tag in tags %}
   <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{% url 'blog:tagged' tag.slug %}">{{ tag.name|capfirst }}</a>
-  <span class="badge badge-primary badge-pill">{{ count }}</span>
+  <!--<span class="badge badge-success badge-pill">{{ count }}</span>-->
+    <!--TODO-->
   </li>
    {% empty %}
     <li class="list-group-item"> No tags</li>
