@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
 
+
 ]
 
 # Apps specific for this project go here.
@@ -63,6 +64,7 @@ LOCAL_APPS = [
     'actstream',
     'markdown',
     'markdownx',
+    'meta',
 
 ]
 
@@ -291,4 +293,11 @@ ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': False,
     'GFK_FETCH_DEPTH': 1,
 }
+
+META_SITE_PROTOCOL = "https"
+META_SITE_DOMAIN = "djangoirl.com"
+META_DEFAULT_KEYWORDS =["djangoirl", "django",]
+META_USE_TITLE_TAG = True
+META_USE_TWITTER_PROPERTIES = True
+META_USE_OG_PROPERTIES = True
 

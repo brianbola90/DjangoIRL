@@ -43,6 +43,11 @@ class PostListMyUnpulbished(UnPublishedMixin, LoginRequiredMixin, ListView):
 class PostDetailView(DetailView):
     model = Post
 
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context['meta'] = self.get_object().as_meta(self.request)
+        return context
+
 
 class PostResultsView(DetailView):
     template_name = 'blog/results.html'
