@@ -46,5 +46,10 @@ urlpatterns = [
         view=views.PublishPostView.as_view(),
         name='publish'
      ),
+    url(
+        regex=r'^tag/(?P<slug>[-\w]+)/$',
+        view=views.TagIndexView.as_view(),
+        name='tagged'
+    ),
 
 ]

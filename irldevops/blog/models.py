@@ -7,7 +7,7 @@ from markdownx.utils import markdownify
 from meta.models import ModelMeta
 import re
 from irldevops.core.models import TimeStampModel
-
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -17,6 +17,8 @@ class Post(ModelMeta, TimeStampModel):
     title = models.CharField(max_length=200)
     text = MarkdownxField()
     publish = models.BooleanField(default=False)
+
+    tags = TaggableManager()
 
     _metadata = {
         'title': 'title',

@@ -1,60 +1,53 @@
-{% extends 'base.html' %}
-{% block content%}
-    <h2>{{ post.title|capfirst }}</h2>
-    <span><i class="fa fa-calendar"></i> {{ post.created }} </span>
-    <span><i class="fa fa-1.5x fa-comment-o"></i> {{ post.comments.count }} </span>
+{% extends 'base.html' %} {% block content%}
+<h2>{{ post.title|capfirst }}</h2>
+<span><i class="fa fa-calendar"></i> {{ post.created }} </span>
+<span><i class="fa fa-1.5x fa-comment-o"></i> {{ post.comments.count }} </span>
 <p> {{ post.formatted_markdown|safe }}</p>
 
 
 
 <p>Written by
-<a href="{% url 'users:detail' post.author.username %}">{{post.author|capfirst}}</a>
+  <a href="{% url 'users:detail' post.author.username %}">{{post.author|capfirst}}</a>
   <small>{{ post.created }}</small>
 </p>
 
- {% if post.author == request.user %}
+{% if post.author == request.user %}
 <div class="input-group mb-3">
 
   {% if post.publish == False %}
-    <form action="{% url 'blog:publish' post.pk %}" method="post">
+  <form action="{% url 'blog:publish' post.pk %}" method="post">
     {% csrf_token %}
     <input type="submit" class="btn btn-info btn-xs " value="Publish">
-    </form>
+  </form>
   {% endif %}
 
-     <form action="{% url 'blog:update' post.pk %}" method="get">
+  <form action="{% url 'blog:update' post.pk %}" method="get">
     {% csrf_token %}
     <input type="submit" class="btn btn-warning btn-sm " value="Update" />
-    </form>
-    <form action="{% url 'blog:delete' post.pk %}" method="get">
+  </form>
+  <form action="{% url 'blog:delete' post.pk %}" method="get">
     {% csrf_token %}
     <input type="submit" class="btn btn-danger btn-sm " value="Delete">
-    </form>
+  </form>
 </div>
 
 {% endif %}
 
 <hr>
-<hr>
-{% if post.publish %}
-
-{% for comment in post.comments.all %}
-    <div class="comment">
-      <img class="img-fluid img-rounded mx-auto" src="{{ comment.author.profile_image_url_thumb }}">
-      <a href="{% url 'users:detail' comment.author.username %}">{{comment.author|capfirst}}</a>
-      <div class="date pull-right"><small>{{ comment.created }}</small></div>
-      <br>
-        <p>{{ comment.text|capfirst|linebreaks }}</p>
-    </div>
-<hr>
-{% endfor %}
+<hr> {% if post.publish %} {% for comment in post.comments.all %}
+<div class="comment">
+  <img class="img-fluid img-rounded mx-auto" src="{{ comment.author.profile_image_url_thumb }}">
+  <a href="{% url 'users:detail' comment.author.username %}">{{comment.author|capfirst}}</a>
+  <div class="date pull-right"><small>{{ comment.created }}</small></div>
+  <br>
+  <p>{{ comment.text|capfirst|linebreaks }}</p>
+</div>
+<hr> {% endfor %}
 <form action="{% url 'blog:comment' pk=post.pk %}" method="post">
   {% csrf_token %}
   <div class="form-group">
     <textarea class="form-control" name="text" rows="5" id="comment" id="id_text" aria-describedby="commentHelp" placeholder="Enter comment"></textarea>
   </div>
- <button type="submit" class="btn btn-primary">Comment</button>
+  <button type="submit" class="btn btn-primary">Comment</button>
 </form>
-{% endif %}
-
-{% endblock content %}
+{% endif %} {% endblock content %}

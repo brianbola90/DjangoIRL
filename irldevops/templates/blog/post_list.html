@@ -1,20 +1,33 @@
 {% extends 'base.html' %}
 {% block content%}
+
+
 <a href="{% url 'blog:create'%}"><span><button class="btn btn-primary">Create post</button></span></a>
 {% if request.user.is_authenticated %}
 <a href="{% url 'blog:drafts'%}"><span><button class="btn btn-info">Drafts</button></span></a>
 {% endif %}
 <hr>
-
+<div class="row">
+<div class="col-lg-8 col-md-10 ">
 {% for post in object_list %}
 <div class="card mb-3">
+
   {% if post.image %}
   <img class="card-img-top" src="http://via.placeholder.com/2000x1000" alt="Card image cap">
   {% endif %}
+
   <div class="card-body">
    <img class="img-fluid img-rounded mx-auto" src="{{ post.author.profile_image_url }}">
+    <p>
     <h5 class="card-title "><a href="{% url 'blog:detail' pk=post.pk %}">{{ post.title|capfirst }}</a></h5>
+    </p>
     <p class="card-text"><small class="text-muted">Created {{ post.created }}</small></p>
+    <div>
+    {% for tag in post.tags.all %}
+    <span class="badge badge-pill badge-dark">{{ tag.name|capfirst }}</span>
+    {% endfor %}
+      </div>
+    <br>
 {% if post.author == request.user %}
      <div class="input-group mb-3">
     {% if post.publish == False %}
@@ -36,28 +49,47 @@
 </div>
  {% endif %}
 
-    <p><span class="pull-right"><i class="fa fa-1.5x fa-comment-o"></i> {{ post.comments.count }} </span></p>
+    <span class="pull-right"><i class="fa fa-1.5x fa-comment-o"></i> {{ post.comments.count }} </span>
   </div>
 </div>
   {% endfor %}
+</div>
+<div class="col-lg-4 col-md-5 ">
+  <ul class="list-group">
+    {% for tag in tags %}
+  <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{% url 'blog:tagged' tag.slug %}">{{ tag.name|capfirst }}</a>
+  <span class="badge badge-primary badge-pill">{{ count }}</span>
+  </li>
+   {% empty %}
+    <li class="list-group-item"> No tags</li>
+    {% endfor %}
+</ul>
+</div>
+</div>
 
-
-
-
+<div class="nav">
 {% if is_paginated %}
-        <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="/blog/post?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="/blog/post?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
-            </span>
-        </div>
+
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link disabled" href="#">Previous</a></li>
     {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="page-item disabled"><a class="page-link disabled" href="?page={{ i }}">{{ i }}</a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link disabled" href="#">Next</a></li>
+    {% endif %}
+  </ul>
+{% endif %}
+</div>
 
 {% endblock content %}

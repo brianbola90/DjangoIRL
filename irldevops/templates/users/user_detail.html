@@ -33,13 +33,16 @@
   {% endif %}
 <hr>
   <div class="row">
+    <div class="col-sm-10">
   {% activity_stream 'actor' user %}
-<ul>
+<ul class="list-group">
     {% for action in stream %}
-   <li> {% display_action action %}</li>
+     <li class="list-group-item" >{% display_action action %}</li>
 {% endfor %}
   </ul>
   </div>
+  </div>
+
 
 
 {% endif %}
@@ -63,9 +66,11 @@
   {% for actor in object.get_following_list %}
   {% activity_stream 'actor'  actor %}
 {% for action in stream %}
-  <ul><li>{% display_action action %}</li></ul>
+  <ul class="list-group"><li class="list-group-item" >{% display_action action %}</li></ul>
 {% endfor %}
       {% endfor %}
+
+
       </div>
       </div>
       </div>
