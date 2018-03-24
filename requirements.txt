@@ -53,3 +53,4 @@ django-activity-stream
 django-markdownx
 markdown
 django-meta
+django-taggit==0.22.2
