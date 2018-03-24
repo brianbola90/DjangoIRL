@@ -34,6 +34,15 @@ class Post(ModelMeta, TimeStampModel):
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})
 
+    def create_meta_description(self):
+        pass
+        # TODO
+        # description = self.text.split(' ')
+        # word_list = description[0:10]
+        # string = '\s'.join(e for e in word_list)
+        # clean_description = re.sub('[^A-Za-z0-9\s]+', '', string45r)
+        # return clean_description
+
     def get_img_url(self):
         regex = "\!\[.*\]\(([^)]+)"
         urls = re.findall(regex, self.text)

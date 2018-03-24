@@ -3,7 +3,6 @@
     <h2>{{ post.title|capfirst }}</h2>
     <span><i class="fa fa-calendar"></i> {{ post.created }} </span>
     <span><i class="fa fa-1.5x fa-comment-o"></i> {{ post.comments.count }} </span>
-<p>{{post.get_img_url}}</p>
 <p> {{ post.formatted_markdown|safe }}</p>
 
 
