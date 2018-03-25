@@ -37,6 +37,7 @@ DJANGO_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
 
 
     # Useful template tags:
@@ -46,11 +47,15 @@ DJANGO_APPS = [
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
+
     'crispy_forms',  # Form layouts
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-
+    'actstream',
+    'markdown',
+    'meta',
+    'taggit',
 
 ]
 
@@ -61,11 +66,9 @@ LOCAL_APPS = [
     # Your stuff: custom apps go here
     'blog',
     'core',
-    'actstream',
-    'markdown',
     'markdownx',
-    'meta',
-    'taggit',
+
+
 
 ]
 
@@ -159,6 +162,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
         'DIRS': [
+            str(APPS_DIR.path('templates/markdownx')),
             str(APPS_DIR.path('templates')),
         ],
         'OPTIONS': {
@@ -188,6 +192,7 @@ TEMPLATES = [
 
 # See: http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 # STATIC FILE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -304,3 +309,6 @@ META_USE_TWITTER_PROPERTIES = True
 META_USE_OG_PROPERTIES = True
 # taggit
 TAGGIT_CASE_INSENSITIVE = True
+
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
