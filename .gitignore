@@ -360,3 +360,5 @@ pip-selfcheck.json
 irldevops/media/
 
 
+client_secrets.json
+/config/settings/client_secrets.json

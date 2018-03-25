@@ -11,7 +11,7 @@ import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (irldevops/config/settings/base.py - 3 = irldevops/)
 APPS_DIR = ROOT_DIR.path('irldevops')
-
+PROJECT_DIR = environ.os.path.dirname(__file__)
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
 
@@ -38,16 +38,15 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.forms',
-
-
     # Useful template tags:
     # 'django.contrib.humanize',
-
     # Admin
+    # install before contrib
+    'jet',
+    'jet.dashboard',
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
-
     'crispy_forms',  # Form layouts
     'allauth',  # registration
     'allauth.account',  # registration
@@ -56,7 +55,6 @@ THIRD_PARTY_APPS = [
     'markdown',
     'meta',
     'taggit',
-
 ]
 
 # Apps specific for this project go here.
@@ -67,9 +65,6 @@ LOCAL_APPS = [
     'blog',
     'core',
     'markdownx',
-
-
-
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -97,28 +92,23 @@ MIGRATION_MODULES = {
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool('DJANGO_DEBUG', False)
-
 # FIXTURE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-FIXTURE_DIRS
 FIXTURE_DIRS = (
     str(APPS_DIR.path('fixtures')),
 )
-
 # EMAIL CONFIGURATION
 # ------------------------------------------------------------------------------
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-
 # MANAGER CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
     ("""Brian McNabola""", 'brian.mcnabola@gmail.com'),
 ]
-
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
-
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
@@ -128,8 +118,6 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///irldevops'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-
-
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
 # Local time zone for this installation. Choices can be found here:
@@ -192,7 +180,6 @@ TEMPLATES = [
 
 # See: http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 
 # STATIC FILE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -312,3 +299,39 @@ TAGGIT_CASE_INSENSITIVE = True
 
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+JET_DEFAULT_THEME = 'default'
+JET_THEMES = [
+    {
+        'theme': 'default',
+        'color': '#47bac1',
+        'title': 'Default'
+    },
+    {
+        'theme': 'green',
+        'color': '#44b78b',
+        'title': 'Green'
+    },
+    {
+        'theme': 'light-green',
+        'color': '#2faa60',
+        'title': 'Light Green'
+    },
+    {
+        'theme': 'light-violet',
+        'color': '#a464c4',
+        'title': 'Light Violet'
+    },
+    {
+        'theme': 'light-blue',
+        'color': '#5EADDE',
+        'title': 'Light Blue'
+    },
+    {
+        'theme': 'light-gray',
+        'color': '#222',
+        'title': 'Light Gray'
+    }
+]
+JET_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
+JET_APP_INDEX_DASHBOARD = 'dashboard.CustomAppIndexDashboard'
+JET_MODULE_GOOGLE_ANALYTICS_CLIENT_SECRETS_FILE = environ.os.path.join(PROJECT_DIR, 'client_secrets.json')

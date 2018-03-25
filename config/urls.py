@@ -6,11 +6,15 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from actstream import views as actstream_views
 
+from jet.dashboard.dashboard_modules import google_analytics_views
+
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # Django Admin, use {% url 'admin:index' %}
+    url(r'^jet/', include('jet.urls', 'jet')),
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     url(settings.ADMIN_URL, admin.site.urls),
 
     # User management
