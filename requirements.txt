@@ -56,3 +56,4 @@ django-meta
 django-taggit==0.22.2
 django-jet
 google-api-python-client
+django-markdown-deux
