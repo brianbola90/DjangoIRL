@@ -65,6 +65,7 @@ LOCAL_APPS = [
     'blog',
     'core',
     'markdownx',
+    'markdown_deux'
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
