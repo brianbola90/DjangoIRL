@@ -8,9 +8,11 @@
 
   <div class="row">
     <div class="col-sm-12">
-
+      {% if object.socialaccount_set.all.0.get_avatar_url %}
+      <img src="{{ object.socialaccount_set.all.0.get_avatar_url }}" height="200" width="200" class="img-fluid  mx-auto"/>
+      {% else %}
       <img class="img-fluid  mx-auto" src="{{ object.profile_image_url }}">
-
+      {% endif %}
       <h2>{{ object.username }}</h2>
       {% if object.name %}
       <blockquote><i>{{ object.name }}</i></blockquote>
@@ -24,7 +26,6 @@
   </div>
   <!--Follow users if not own profile-->
 {% if object != request.user %}
-
 
   {% if request.user|is_following:object %}
   <a class="btn btn-primary" href="{% url 'actstream_unfollow' content_type_id=12 object_id=object.id %}?next={% url 'users:detail' object.username|urlencode %}">UnFollow</a>
@@ -54,6 +55,7 @@
   <div class="col-sm-10">
     <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
     <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+    <a class="btn btn-primary" href="{% url 'socialaccount_connections' %}" role="button">Social accounts</a>
     <!-- Your Stuff: Custom user template urls -->
   </div>
 

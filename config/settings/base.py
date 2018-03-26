@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'allauth.socialaccount.providers.twitter',
     'actstream',
     'markdown',
     'meta',
@@ -261,6 +262,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
 ACCOUNT_ADAPTER = 'irldevops.users.adapters.AccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'irldevops.users.adapters.SocialAccountAdapter'
+
 
 # Custom user app defaults
 # Select the correct user model

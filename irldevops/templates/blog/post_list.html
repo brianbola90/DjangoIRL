@@ -17,7 +17,12 @@
   {% endif %}
 
   <div class="card-body">
-   <img class="img-fluid img-rounded mx-auto" src="{{ post.author.profile_image_url }}">
+      {% if post.author.socialaccount_set.all.0.get_avatar_url %}
+
+      <img src="{{ post.author.socialaccount_set.all.0.get_avatar_url }}" height="150" width="150" class="img-fluid  mx-auto"/>
+      {% else %}
+       <img class="img-fluid img-rounded mx-auto" src="{{ post.author.profile_image_url }}">
+      {% endif %}
     <p>
     <h5 class="card-title "><a href="{% url 'blog:detail' pk=post.pk %}">{{ post.title|capfirst }}</a></h5>
     </p>

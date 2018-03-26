@@ -28,16 +28,14 @@
   <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
   <!-- Your stuff: Third-party CSS libraries go here -->
-
-  <link href='https://fonts.googleapis.com/css?family=Overpass+Mono' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Overpass+Mono' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-  <!--<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel="stylesheet" type="text/css">-->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
   <link href="{% static 'css/project.css' %}" rel="stylesheet">
   <link href="{% static 'css/clean-blog.css' %}" rel="stylesheet">
-
+  <link href="{% static 'css/bootstrap-social.css' %}" rel="stylesheet">
   {% compress css %}
 
   <!-- This file stores project-specific CSS -->
@@ -121,7 +119,7 @@
             <li class="list-inline-item">
               <a href="https://twitter.com/DjangoIRL">
                   <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <!--<i class="fa fa-circle fa-stack-2x"></i>-->
                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                   </span>
                 </a>
@@ -129,7 +127,7 @@
             <li class="list-inline-item">
               <a href="https://www.facebook.com/groups/1927746717538665/">
                   <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <!--<i class="fa fa-circle fa-stack-2x"></i>-->
                     <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                   </span>
                 </a>
@@ -137,7 +135,7 @@
             <li class="list-inline-item">
               <a href="https://github.com/brianbola90/DjangoIRL">
                   <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <!--<i class="fa fa-circle fa-stack-2x"></i>-->
                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
                   </span>
                 </a>
@@ -166,6 +164,8 @@
 
   <!-- place project specific Javascript in this file -->
   <script src="{% static 'js/project.js' %}"></script>
+  <script src="{% static 'js/docs.js' %}"></script>
+   <script src="{% static 'js/jquery.js' %}"></script>
   {% compress js %} {% endcompress %} {% endblock javascript %}
 
 </body>
