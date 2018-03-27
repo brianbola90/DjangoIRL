@@ -15,17 +15,17 @@
 <div class="input-group mb-3">
 
   {% if post.publish == False %}
-  <form action="{% url 'blog:publish' post.pk %}" method="post">
+  <form action="{% url 'blog:publish' post.slug %}" method="post">
     {% csrf_token %}
     <input type="submit" class="btn btn-info btn-xs " value="Publish">
   </form>
   {% endif %}
 
-  <form action="{% url 'blog:update' post.pk %}" method="get">
+  <form action="{% url 'blog:update' post.slug %}" method="get">
     {% csrf_token %}
     <input type="submit" class="btn btn-warning btn-sm " value="Update" />
   </form>
-  <form action="{% url 'blog:delete' post.pk %}" method="get">
+  <form action="{% url 'blog:delete' post.slug %}" method="get">
     {% csrf_token %}
     <input type="submit" class="btn btn-danger btn-sm " value="Delete">
   </form>
@@ -48,7 +48,7 @@
   <p>{{ comment.text|capfirst|linebreaks }}</p>
 </div>
 <hr> {% endfor %}
-<form action="{% url 'blog:comment' pk=post.pk %}" method="post">
+<form action="{% url 'blog:comment' slug=post.slug %}" method="post">
   {% csrf_token %}
   <div class="form-group">
     <textarea class="form-control" name="text" rows="5" id="comment" id="id_text" aria-describedby="commentHelp" placeholder="Enter comment"></textarea>
