@@ -17,7 +17,7 @@ from django_extensions.db.fields import AutoSlugField
 class Post(ModelMeta, TimeStampModel):
     author = models.ForeignKey('users.User')
     title = models.CharField(max_length=200)
-    slug = AutoSlugField(_('slug'), max_length=50,  populate_from=('title',))
+    slug = AutoSlugField(_('slug'), max_length=50, populate_from=('title',))
     text = MarkdownxField()
     publish = models.BooleanField(default=False)
 
