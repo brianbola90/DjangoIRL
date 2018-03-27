@@ -48,7 +48,7 @@
   <p>{{ comment.text|capfirst|linebreaks }}</p>
 </div>
 <hr> {% endfor %}
-<form action="{% url 'blog:comment' pk=post.pk %}" method="post">
+<form action="{% url 'blog:comment' slug=post.slug %}" method="post">
   {% csrf_token %}
   <div class="form-group">
     <textarea class="form-control" name="text" rows="5" id="comment" id="id_text" aria-describedby="commentHelp" placeholder="Enter comment"></textarea>

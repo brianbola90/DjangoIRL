@@ -8,6 +8,8 @@ from meta.models import ModelMeta
 import re
 from irldevops.core.models import TimeStampModel
 from taggit.managers import TaggableManager
+from django.utils.translation import ugettext_lazy as _
+from django_extensions.db.fields import AutoSlugField
 
 # Create your models here.
 
@@ -15,6 +17,7 @@ from taggit.managers import TaggableManager
 class Post(ModelMeta, TimeStampModel):
     author = models.ForeignKey('users.User')
     title = models.CharField(max_length=200)
+    slug = AutoSlugField(_('slug'), max_length=50, unique=True, populate_from=('title',))
     text = MarkdownxField()
     publish = models.BooleanField(default=False)
 
@@ -59,6 +62,8 @@ class Post(ModelMeta, TimeStampModel):
     def publish_post(self):
         self.publish = True
         self.save()
+
+
 
 
 class Comment(TimeStampModel):

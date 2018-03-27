@@ -58,6 +58,11 @@ class PostDetailView(DetailView):
         context['meta'] = self.get_object().as_meta(self.request)
         return context
 
+    def get_success_url(self):
+        return reverse('blog:detail',
+                       kwargs={'slug': self.object.slug})
+
+
 
 class PostResultsView(DetailView):
     template_name = 'blog/results.html'
@@ -71,7 +76,7 @@ class PostUpdateView(ObjectOwnerMixin, LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('blog:detail',
-                       kwargs={'pk': self.object.pk})
+                       kwargs={'slug': self.object.slug})
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -90,7 +95,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('blog:detail',
-                       kwargs={'pk': self.object.pk})
+                       kwargs={'slug': self.object.slug})
 
 
 class PublishPostView(SingleObjectMixin, View):
@@ -116,7 +121,7 @@ class CommentView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         comment = form.save(commit=False)
 
-        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        post = get_object_or_404(Post, pk=self.kwargs['pk'], slug=self.kwargs['slug'])
         comment.post = post
         comment.author = self.request.user
         comment.save()
@@ -125,7 +130,7 @@ class CommentView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('blog:detail',
-                       kwargs={'pk': self.object.post.pk})
+                       kwargs={'slug': self.object.post.slug})
 
 
 class TagIndexView(TagMixin, ListView):
