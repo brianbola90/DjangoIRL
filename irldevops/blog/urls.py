@@ -9,17 +9,17 @@ urlpatterns = [
         name='list'
     ),
     url(
-        regex=r'^post/(?P<slug>[\w-]+)$',
+        regex=r'^post/(?P<pk>\d+)$',
         view=views.PostDetailView.as_view(),
         name='detail'
     ),
     url(
-        regex=r'^post/(?P<slug>[\w-]+)/results/$',
+        regex=r'^post/(?P<pk>\d+)/results/$',
         view=views.PostResultsView.as_view(),
         name='results'
     ),
     url(
-        regex=r'^post/(?P<slug>[\w-]+)/update/$',
+        regex=r'^post/(?P<pk>\d+)/update/$',
         view=views.PostUpdateView.as_view(),
         name='update'
     ),
@@ -27,12 +27,12 @@ urlpatterns = [
         view=views.PostCreateView.as_view(),
         name='create'),
     url(
-        regex=r'^post/(?P<slug>[\w-]+)/delete/$',
+        regex=r'^post/(?P<pk>\d+)/delete/$',
         view=views.PostDeleteView.as_view(),
         name='delete'
     ),
     url(
-        regex=r'^post/(?P<slug>[\w-]+)/comment/$',
+        regex=r'^post/(?P<pk>\d+)/comment/$',
         view=views.CommentView.as_view(),
         name='comment'
     ),
@@ -42,7 +42,7 @@ urlpatterns = [
         name='drafts'
     ),
     url(
-        regex=r'^post/(?P<slug>[\w-]+)/publish/$',
+        regex=r'^post/(?P<pk>\d+)/publish/$',
         view=views.PublishPostView.as_view(),
         name='publish'
      ),
