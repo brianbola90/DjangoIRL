@@ -9,6 +9,8 @@ from .models import Post
 from .forms import CommentForm, PostForm
 from actstream import action
 from taggit.models import Tag
+from pure_pagination.mixins import PaginationMixin
+
 
 # Create your views here.
 
@@ -38,13 +40,13 @@ class TagMixin(object):
         return context
 
 
-class PostListView(TagMixin, PublishedMixin, ListView):
+class PostListView(PaginationMixin, TagMixin, PublishedMixin, ListView):
     model = Post
     paginate_by = 5
     template_name = 'blog/post_list.html'
 
 
-class PostListMyUnpulbished(TagMixin, UnPublishedMixin, LoginRequiredMixin, ListView):
+class PostListMyUnpulbished(PaginationMixin, TagMixin, UnPublishedMixin, LoginRequiredMixin, ListView):
     model = Post
     paginate_by = 5
     # template_name = 'blog/post_list_drafts.html'
@@ -61,7 +63,6 @@ class PostDetailView(DetailView):
     def get_success_url(self):
         return reverse('blog:detail',
                        kwargs={'slug': self.object.slug})
-
 
 
 class PostResultsView(DetailView):
@@ -146,5 +147,3 @@ class TagIndexView(TagMixin, ListView):
         context = super(TagIndexView, self).get_context_data(**kwargs)
         context['count'] = self.get_queryset().count()
         return context
-
-

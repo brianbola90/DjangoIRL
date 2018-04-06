@@ -8,7 +8,6 @@ import hashlib
 from allauth.socialaccount.models import SocialAccount
 
 
-
 @python_2_unicode_compatible
 class User(AbstractUser):
 

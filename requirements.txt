@@ -58,3 +58,4 @@ django-jet
 google-api-python-client
 django-markdown-deux
 django_extensions
+taggit-selectize

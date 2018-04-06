@@ -1,6 +1,6 @@
 from .models import Comment, Post
 from django import forms
-from taggit import forms as tag_form
+from taggit_selectize import widgets as tag_widget
 
 
 class CommentForm(forms.ModelForm):
@@ -16,5 +16,5 @@ class PostForm(forms.ModelForm):
         fields = ['title', 'text', 'tags', 'publish']
         widgets = {'title': forms.TextInput(attrs={'class': 'col-md-5 form-control', 'placeholder': 'Title'}),
                    'text': forms.Textarea(),
-                   'tags': tag_form.TagWidget(attrs={'class': 'col-md-5 form-control', 'placeholder': 'Tags'}),
+                   'tags': tag_widget.TagSelectize(attrs={'class': 'col-md-5', 'placeholder': 'Tags'}),
                    'publish': forms.CheckboxInput(attrs={'label': 'publish'})}

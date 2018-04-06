@@ -42,14 +42,17 @@ urlpatterns = [
         name='drafts'
     ),
     url(
-        regex=r'^post/(?P<slug>[\w-]+)/publish/$',
+        regex=r'^post/(?P<pk>\d+)/publish/$',
         view=views.PublishPostView.as_view(),
         name='publish'
      ),
     url(
-        regex=r'^tag/(?P<slug>[\w-]+)/$',
+        regex=r'^tag/(?P<slug>[-\w]+)/$',
         view=views.TagIndexView.as_view(),
         name='tagged'
     ),
+
+
+
 
 ]

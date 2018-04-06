@@ -38,6 +38,7 @@ urlpatterns = [
         actstream_views.follow_unfollow, {'do_follow': False},
         name='actstream_unfollow'),
     url(r'^markdownx/', include('markdownx.urls')),
+    url(r'^taggit/', include('taggit_selectize.urls')),
 
    # Your stuff: custom urls includes go here
 

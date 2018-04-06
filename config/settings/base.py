@@ -56,6 +56,11 @@ THIRD_PARTY_APPS = [
     'markdown',
     'meta',
     'taggit',
+    'pure_pagination',
+    'markdownx',
+    'markdown_deux',
+    'taggit_selectize',
+    'django_seed',
 ]
 
 # Apps specific for this project go here.
@@ -65,8 +70,7 @@ LOCAL_APPS = [
     # Your stuff: custom apps go here
     'blog',
     'core',
-    'markdownx',
-    'markdown_deux'
+
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -299,7 +303,32 @@ META_USE_TWITTER_PROPERTIES = True
 META_USE_OG_PROPERTIES = True
 # taggit
 TAGGIT_CASE_INSENSITIVE = True
+# taggit selectize
+TAGGIT_TAGS_FROM_STRING = 'taggit_selectize.utils.parse_tags'
+TAGGIT_STRING_FROM_TAGS = 'taggit_selectize.utils.join_tags'
 
+# Taggit-Selectize settings
+TAGGIT_SELECTIZE = {
+    'MINIMUM_QUERY_LENGTH': 2,
+    'RECOMMENDATION_LIMIT': 10,
+    'CSS_FILENAMES': ("taggit_selectize/css/selectize.django.css",),
+    'JS_FILENAMES': ("taggit_selectize/js/selectize.js",),
+    'DIACRITICS': True,
+    'CREATE': True,
+    'PERSIST': True,
+    'OPEN_ON_FOCUS': True,
+    'HIDE_SELECTED': True,
+    'CLOSE_AFTER_SELECT': False,
+    'LOAD_THROTTLE': 300,
+    'PRELOAD': False,
+    'ADD_PRECEDENCE': False,
+    'SELECT_ON_TAB': False,
+    'REMOVE_BUTTON': False,
+    'RESTORE_ON_BACKSPACE': False,
+    'DRAG_DROP': False,
+    'DELIMITER': ','
+}
+# Configure Taggit to use our own parser that prevents tags from getting split on spaces. We only want comma separated
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 JET_DEFAULT_THEME = 'default'
@@ -338,3 +367,10 @@ JET_THEMES = [
 JET_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
 JET_APP_INDEX_DASHBOARD = 'dashboard.CustomAppIndexDashboard'
 JET_MODULE_GOOGLE_ANALYTICS_CLIENT_SECRETS_FILE = environ.os.path.join(PROJECT_DIR, 'client_secrets.json')
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 5,
+    'MARGIN_PAGES_DISPLAYED': 2,
+
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}

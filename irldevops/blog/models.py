@@ -7,10 +7,10 @@ from markdownx.utils import markdownify
 from meta.models import ModelMeta
 import re
 from irldevops.core.models import TimeStampModel
-from taggit.managers import TaggableManager
+from taggit_selectize.managers import TaggableManager
+
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import AutoSlugField
-
 # Create your models here.
 
 
@@ -31,6 +31,8 @@ class Post(ModelMeta, TimeStampModel):
 
     class Meta:
         verbose_name_plural = "posts"
+
+    
 
     @property
     def formatted_markdown(self):
@@ -62,8 +64,6 @@ class Post(ModelMeta, TimeStampModel):
     def publish_post(self):
         self.publish = True
         self.save()
-
-
 
 
 class Comment(TimeStampModel):
