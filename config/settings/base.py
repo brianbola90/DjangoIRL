@@ -60,7 +60,7 @@ THIRD_PARTY_APPS = [
     'markdownx',
     'markdown_deux',
     'taggit_selectize',
-    
+
 ]
 
 # Apps specific for this project go here.
@@ -323,7 +323,7 @@ TAGGIT_SELECTIZE = {
     'PRELOAD': False,
     'ADD_PRECEDENCE': False,
     'SELECT_ON_TAB': False,
-    'REMOVE_BUTTON': False,
+    'REMOVE_BUTTON': True,
     'RESTORE_ON_BACKSPACE': False,
     'DRAG_DROP': False,
     'DELIMITER': ','
