@@ -60,7 +60,7 @@ THIRD_PARTY_APPS = [
     'markdownx',
     'markdown_deux',
     'taggit_selectize',
-    'django_seed',
+    
 ]
 
 # Apps specific for this project go here.
