@@ -202,7 +202,7 @@ typings/
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
-
+.idea/*
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
