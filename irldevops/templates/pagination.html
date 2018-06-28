@@ -1,4 +1,5 @@
 {% load i18n %}
+<ul>
 <div class="pagination">
     {% if page_obj.has_previous %}
   <li class="page-item"> <a class="page-link" href="?{{ page_obj.previous_page_number.querystring }}" >&lsaquo;&lsaquo; {% trans "Previous" %}</a></li>
@@ -23,7 +24,5 @@
   <li class="page-item disabled"><a class="page-link disabled" href="#">{% trans "Next" %} &rsaquo;&rsaquo;</a></li>
     {% endif %}
 </div>
-
-
-
+</ul>
 

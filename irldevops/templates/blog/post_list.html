@@ -6,16 +6,16 @@
 {% if request.user.is_authenticated %}
 <a href="{% url 'blog:drafts'%}"><span><button class="btn btn-info">Drafts</button></span></a>
 {% endif %}
-<hr>
 <div class="row">
 <div class="col-lg-8 col-md-10 ">
-{% for post in object_list %}
-<div class="card mb-3">
 
+  {% for post in object_list %}
+<div class="card shadow mb-3">
   {% if post.image %}
   <img class="card-img-top" src="http://via.placeholder.com/2000x1000" alt="Card image cap">
   {% endif %}
-
+<div class="card-header">
+</div>
   <div class="card-body">
       {% if post.author.socialaccount_set.all.0.get_avatar_url %}
 
@@ -24,6 +24,7 @@
        <img class="img-fluid img-rounded mx-auto" src="{{ post.author.profile_image_url }}">
       {% endif %}
     <p>
+
     <h5 class="card-title "><a href="{% url 'blog:detail' slug=post.slug %}">{{ post.title|capfirst }}</a></h5>
     </p>
     <p class="card-text"><small class="text-muted">Created {{ post.created }}</small></p>
@@ -57,10 +58,15 @@
     <span class="pull-right"><i class="fa fa-1.5x fa-comment-o"></i> {{ post.comments.count }} </span>
   </div>
 </div>
+
+  {% empty %}
+
+  <h1>No Posts</h1>
+
   {% endfor %}
 </div>
 <div class="col-lg-4 col-md-5 ">
-  <div class="card" style="width: 18rem;">
+  <div class="card shadow-nohover" style="width: 18rem;">
   <div class="card-header">
     <b>Tags</b>
   </div>
@@ -76,8 +82,8 @@
 </ul>
 </div>
 </div>
-<nav>
+{% if is_paginated %}
 {% include "pagination.html" %}
-</nav>
+{% endif %}
 {% endblock content %}
 </div>
