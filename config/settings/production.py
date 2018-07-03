@@ -203,6 +203,9 @@ LOGGING = {
         'sentry.errors': {
             'level': 'DEBUG',
             'handlers': ['console', ],
+
+
+            
             'propagate': False,
         },
         'django.security.DisallowedHost': {
