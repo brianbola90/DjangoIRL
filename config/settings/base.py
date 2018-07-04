@@ -60,6 +60,7 @@ THIRD_PARTY_APPS = [
     'markdownx',
     'markdown_deux',
     'taggit_selectize',
+    'cookie_consent'
 
 ]
 
