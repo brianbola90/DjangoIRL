@@ -39,7 +39,7 @@ urlpatterns = [
         name='actstream_unfollow'),
     url(r'^markdownx/', include('markdownx.urls')),
     url(r'^taggit/', include('taggit_selectize.urls')),
-
+    url(r'^cookies/', include('cookie_consent.urls'))
    # Your stuff: custom urls includes go here
 
 
