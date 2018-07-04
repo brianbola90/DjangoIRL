@@ -205,7 +205,7 @@ LOGGING = {
             'handlers': ['console', ],
 
 
-            
+
             'propagate': False,
         },
         'django.security.DisallowedHost': {

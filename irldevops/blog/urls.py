@@ -42,7 +42,7 @@ urlpatterns = [
         name='drafts'
     ),
     url(
-        regex=r'^post/(?P<pk>\d+)/publish/$',
+        regex=r'^post/(?P<slug>[-\w]+)/publish/$',
         view=views.PublishPostView.as_view(),
         name='publish'
      ),
