@@ -18,7 +18,7 @@
   {% if post.publish == False %}
   <form action="{% url 'blog:publish' post.slug %}" method="post">
     {% csrf_token %}
-    <input type="submit" class="btn btn-info btn-xs " value="Publish">
+    <input type="submit" class="btn btn-info btn-sm " value="Publish">
   </form>
   {% endif %}
 
